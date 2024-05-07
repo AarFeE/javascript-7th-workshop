@@ -1,41 +1,44 @@
-let Person = {
-    firstName: 'Andres',
-    lastName: 'Jimenez',
-    age: 22,
-    occupation: 'Student',
-    hobbies: ['play videogames', 'listen to music', 'cooking food'],
-    greet: function () {
-        return `Hello! My name is ${this.firstName}`
-    }
+function Person(firstName, lastName, age, occupation, hobbies) {
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.age = age;
+    this.occupation = occupation;
+    this.hobbies = hobbies;
 }
 
-let Student = {
-    gradesAvg: 4.2,
-    courses: ['Linear Mathematics', 'Biology III', 'Art Appreciation'],
-    takeTest: function () {
-        return "Presenting an exam!"
-    }
+Person.prototype.greet = function () {
+    return `Hello! My name is ${this.firstName}`;
+};
+
+function Student(firstName, lastName, age, occupation = "Student", hobbies, average, courses) {
+    Person.call(this, firstName, lastName, age, occupation, hobbies);
+    this.average = average;
+    this.courses = courses;
 }
 
-Object.setPrototypeOf(Student, Person) //The Student object inherits from Person object by changing its prototype to Object.prototype.Person()
+Student.prototype = Object.create(Person.prototype); /*The Student class inherits from Person
+class by changing its prototype to Person.prototype*/
+Student.prototype.constructor = Student;
 
-console.log(Student.greet()) //Now Student can access to its inherited function greet()
+let testStudent = new Student('Andres', 'Jimenez', 22, 'Student',
+    ['play videogames', 'listen to music', 'cooking food'], 4.7, ['Math II', 'Biology IV', 'Greek Literature']);
 
-//We modify the greet() function in the Person object
-Person.greet = function () {
+console.log(testStudent.greet()); //Now Student can access to its inherited function greet()
+
+Student.prototype.takeTest = function () {
+    return "Presenting an exam!";
+};
+
+Person.prototype.greet = function () { //We modify the greet() function in the Person class
     return `Hello! My name is ${this.firstName} ${this.lastName}` +
         ` and I'm ${this.age} years old`
 }
+//The Student's class greet() function also changes, because we modified its father's prototype's greet() function 
+console.log(testStudent.greet())
 
-//The Student's object greet() function also changes, because by altering the father's greet() function we modified its prototype's greet() function too
-console.log(Student.greet())
-
-//Now we override the greet() function in the child object Student
-Student.greet = function () {
-    return `${Person.greet.call(this)} From the Student Object`;
+Student.prototype.greet = function () { //Now we override the greet() function in the child class Student
+    return `${Person.prototype.greet.call(this)} From the Student Object`;
 }
 
-console.log(Student.greet())
-
-console.log(Object.getPrototypeOf(Student))
+console.log(testStudent.greet());
 
