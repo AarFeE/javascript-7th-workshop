@@ -1,4 +1,4 @@
-function Product(name, requiredPoints, stock, price, category) {
+export default function Product(name, requiredPoints, stock, price, category) {
     this.name = name;
     this.requiredPoints = requiredPoints;
     this.stock = stock;
@@ -8,3 +8,4 @@ function Product(name, requiredPoints, stock, price, category) {
 
 Product.prototype.updateInfo = function () { }
 Product.prototype.getInfo = function () { }
+Product.prototype.paloo = function () { console.log("Paloo :D"); }
