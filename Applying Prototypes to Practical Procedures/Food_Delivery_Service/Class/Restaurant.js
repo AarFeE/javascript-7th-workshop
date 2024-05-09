@@ -1,9 +1,9 @@
 import Dish from "./Dish.js";
 
-export default function Restaurant(name, address, menu) {
+export default function Restaurant(name, address) {
     this.name = name;
     this.address = address;
-    this.menu = menu;
+    this.menu = [];
 }
 
 Restaurant.prototype.AddDish = (name, price, ingredients) => {

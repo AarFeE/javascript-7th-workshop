@@ -3,4 +3,4 @@ export default function Activity(type, awardedPoints) {
     this.awardedPoints = awardedPoints;
 }
 
-Activity.prototype.completeActivity() = function () { }
+Activity.prototype.completeActivity = function () { }

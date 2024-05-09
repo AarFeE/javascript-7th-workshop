@@ -3,6 +3,9 @@ export default function Order(date, products, activity, customer) {
     this.products = products;
     this.activity = activity;
     this.customer = customer;
+    this.sentState = false;
 }
 
-Order.prototype.completeActivity = function () { };
+Order.prototype.sendOrder = function () {
+    this.sentState = true;
+}
